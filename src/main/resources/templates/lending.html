@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lendings</title>
+</head>
+<body>
+<h2>All Lending Records</h2>
+<table border="1">
+    <tr>
+        <th>ID</th><th>Student</th><th>Book</th><th>Date</th><th>Return</th>
+    </tr>
+    <tr th:each="lend : ${lendings}">
+        <td th:text="${lend.id}"></td>
+        <td th:text="${lend.student.name}"></td>
+        <td th:text="${lend.book.title}"></td>
+        <td th:text="${lend.lendingDate}"></td>
+        <td>
+            <form th:action="@{/lendings/return}" method="post">
+                <input type="hidden" name="lendingId" th:value="${lend.id}"/>
+                <button type="submit">Return</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<h3>New Lending</h3>
+<form action="#" th:action="@{/lendings/lend}" method="post">
+    Student ID: <input type="number" name="studentId" required /><br/>
+    Book ID: <input type="number" name="bookId" required /><br/>
+    <input type="submit" value="Lend Book"/>
+</form>
+
+<a th:href="@{/}">Back to Home</a>
+</body>
+</html>
